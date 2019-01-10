@@ -12,8 +12,11 @@ def main():
     screen = pygame.display.set_mode((800, 800))
     pygame.display.set_caption("Avana")
     clock = pygame.time.Clock()
-    BG_COLOR = 128, 128, 128 #Light gray RGB
-    screen.fill(BG_COLOR)
+    #BG_COLOR = 128, 128, 128 #Light gray RGB
+    backgroundImg = pygame.image.load('Assets/background_image.png')
+
+    screen.blit(backgroundImg, (0, 0))
+    #screen.fill(BG_COLOR)
     
     mFrame = mainFrame()
 
