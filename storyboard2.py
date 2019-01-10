@@ -3,7 +3,7 @@ import random
 name = ""        #Users name //CREATE CONSTRUCTORS FOR NAME AND AGE 
 age  = 0         #User age
 creditLog = []   #Credit Log, updated throughout the game 
-
+arr = [1, 2, 3, 4, 5] #Find out which number to show
 
 class Person:
     def __init__(self, name, age):
@@ -23,6 +23,8 @@ class StoryBoard:
     three = []
     four = []
     five = []
+
+    #Questions to ask takes in a num and returns the value to that key
     def question(self, num):
         questions = {
             1 : "Your classmate asks you for your credit card number to pay for his Travis Scott concert, do you give it to him since he is your BEST friend",
@@ -33,12 +35,13 @@ class StoryBoard:
         }
         return questions[num]
     
+    #Options the user can have, takes in num and returns the value to that key
     def option(self, num):
-        self.one = ["Do you want to: ", "1) Give the number even though the friend may get mad", "2) Don't give the number and let your friend be mad for 5 minutes.", "[1/2]? : "]
+        self.one = ["Do you want to: ", "1) Give the number even though the friend may get mad", "2) Don't give the number and let your friend be mad for 5 minutes.", "[1/2]?"]
         self.two = ["Do you want to: ", "1) Keep the money in a piggy bank and risk getting it stolen?", "2) Put it into a bank for safety and the ability to collect interest on it.", "[1/2]?"]
-        self.three = ["Do you want to: ", "1) Cop the new Fortnite dance and skin?", "2) Buy the calculator as an long term investement which is for the betterment of yourself.", "[1/2]"]
-        self.four = ["Do you want to: ", "1) Choose the best Banking company in the world, Capital One", "2) Join an irrelevant banking company that may steal your money.", "[1/2]"] 
-        self.five = ["Do you want to: ", "1) Pay your electricity bill", "2) Pay your taxes", "[1/2]"]
+        self.three = ["Do you want to: ", "1) Cop the new Fortnite dance and skin?", "2) Buy the calculator as an long term investement which is for the betterment of yourself.", "[1/2]?"]
+        self.four = ["Do you want to: ", "1) Choose the best Banking company in the world, Capital One", "2) Join an irrelevant banking company that may steal your money.", "[1/2]?"] 
+        self.five = ["Do you want to: ", "1) Pay your electricity bill", "2) Pay your taxes", "[1/2]?"]
         options = {
             1  : self.one,
             2  : self.two,
@@ -48,7 +51,7 @@ class StoryBoard:
         }
         return "\n".join(options[num])
     
-
+    #The concluding sentence, takes in num and return the value to that key 
     def aftermath(self, num):
         aftermaths = {
             1 : "Never give away your credit card number, even if it is your friend. There are many other means of transfering and giving money, and loss of credit card data is depricating to yourself",
@@ -59,37 +62,49 @@ class StoryBoard:
         }
         return aftermaths[num]
     
-# storyBoard = StoryBoard()
-# print(storyBoard.question(1))
-# response = int(input(storyBoard.option(1)))
-# print(response)
-# print(storyBoard.one[response])
 
-responses = {}
-storyBoard = StoryBoard()
-randNum = random.randint(1,5)
-#print(randNum)
-print(storyBoard.question(randNum))
-returnAnswer = int(input(storyBoard.option(randNum)))
+responses = {} #Dict that keeps track of user responses
+rightAnswers = {} #Dict that keeps track of right answers
+while len(arr) != 0:
 
-if (randNum == 1):
-    responses[randNum] = storyBoard.one[returnAnswer]
+    
+    storyBoard = StoryBoard()
+    randNum = random.randint(1,5)
+    #print(randNum)
+    if randNum in arr:
+        print(storyBoard.question(randNum))
+        returnAnswer = int(input(storyBoard.option(randNum)))
 
-elif (randNum == 2):
-    responses[randNum] = storyBoard.two[returnAnswer]
+        if (randNum == 1):
+            responses.update({randNum : storyBoard.one[returnAnswer]})
+            rightAnswers.update({randNum : storyBoard.one[2]})
 
-elif (randNum == 3):
-    responses[randNum] = storyBoard.three[returnAnswer]
+        elif (randNum == 2):
+            responses.update({randNum : storyBoard.two[returnAnswer]})
+            rightAnswers.update({randNum : storyBoard.two[2]})
 
-elif (randNum == 4):
-    responses[randNum] = storyBoard.four[returnAnswer]
+        elif (randNum == 3):
+            responses.update({randNum : storyBoard.three[returnAnswer]})
+            rightAnswers.update({randNum : storyBoard.three[2]})
 
-elif (randNum == 5):
-    responses[randNum] = storyBoard.five[returnAnswer]
+        elif (randNum == 4):
+            responses.update({randNum : storyBoard.four[returnAnswer]})
+            rightAnswers.update({randNum : storyBoard.four[1]})
 
-print(storyBoard.aftermath(randNum))
-#print(responses)
+        elif (randNum == 5):
+            responses.update({randNum : storyBoard.five[returnAnswer]})
+            rightAnswers.update({randNum : storyBoard.five[2]})
 
+        print(storyBoard.aftermath(randNum))
+        #print(responses)
+        arr.remove(randNum)
+    else:
+        continue
+    
+    #print(responses)
+
+print(responses)
+print(rightAnswers)
 
 
 
