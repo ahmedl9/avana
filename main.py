@@ -2,6 +2,7 @@
 import pygame
 import serial
 from MainFrame import mainFrame
+from HUD import hud
 from pySerialTest import myRead as read
 
 
@@ -15,7 +16,8 @@ def main():
     screen.fill(BG_COLOR)
     
     mFrame = mainFrame()
-    mFrame.render(screen)
+
+    ourHUD = hud()
 
     isRunning = True
 
@@ -26,6 +28,7 @@ def main():
                 isRunning = False
         
         mFrame.render(screen)
+        ourHUD.render(screen)
         
         pygame.display.update()
 

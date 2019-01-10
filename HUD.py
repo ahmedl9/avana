@@ -1,31 +1,37 @@
 import pygame
 
-class HUD:
-    #Store person image displayed
-    #Store current text displayed
-    #Store current decisions
-    happiness = 0
-    creditScore = 0
-    balance = 0
-    
+class hud:    
     def __init__(self):
+        self.happiness = 0
+        self.creditScore = 0
+        self.balance = 0
 
     def getHapiness(self):
-        return happiness
+        return self.happiness
 
     def getCreditScore(self):
-        return creditScore
+        return self.creditScore
 
     def getBalance(self):
-        return balance
+        return self.balance
 
-    def setHapiness(self, val):
-        hapiness = val
+    def changeHapiness(self, val):
+        self.hapiness = self.hapiness + val
+
+    def changeCreditScore(self, val):
+        self.creditScore = self.creditScore + val
+
+    def changeBalance(self, val):
+        self.balance = self.balance + val
 
     def render(self, screen):
-        #clean up all previous texts and images
-        pygame.draw.rect(screen, (105, 105, 105), (200,200,400,400))
+        creditScoreImg = pygame.image.load('Assets/creditscore_bar.png')
+        balanceImg = pygame.image.load('Assets/balance_bar.png')
+        happinessImg = pygame.image.load('Assets/happiness1.png')
 
+        screen.blit(creditScoreImg, (50, 50))
+        screen.blit(happinessImg, (384, 59))
+        screen.blit(balanceImg, (500, 50))
         
         
         #render image
