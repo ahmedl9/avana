@@ -1,8 +1,10 @@
 #This is our main file 
 import pygame
+import serial
+from pySerialTest import myRead as read
 
-def myRead():
-    return "Still"
+ser = serial.Serial('/dev/cu.usbmodem1411', 115200)
+
 
 def main():   
     pygame.init()
@@ -14,20 +16,22 @@ def main():
 
 
     isRunning = True
-    
+    xpos = 350
+    black = [0, 0, 0]
+
     while isRunning :
+        print(read(ser))
         time_passed = clock.tick(50)
         for event in pygame.event.get():
             if (event.type == pygame.QUIT):
                 isRunning = False
-
-        joystickInput = myRead()
+        joystickInput = read(ser)
         if joystickInput == "Left":
-            pygame.draw.rect(screen, (0,0,255), (10,10,10,10))
-        if joystickInput == "Right":
-            pygame.draw.rect(screen, (0,0,255), (700,10,10,10))
-        if joystickInput == "Still":
-            pygame.draw.rect(screen, (0,0,255), (350,10,10,10))
+            xpos -= 20
+        elif joystickInput == "Right":
+            xpos += 20
+        screen.fill(black)
+        pygame.draw.rect(screen, (0,0,255), (xpos,10,10,10))
 
 
         pygame.display.update()

@@ -1,5 +1,5 @@
 
-print("Hello World")
+#print("Hello World")
 
 import serial
 
@@ -15,8 +15,8 @@ def myRead(mySerial):
 		return "Left"
 
 
-ser = serial.Serial('/dev/cu.usbmodem1411', 115200)
+#ser = serial.Serial('/dev/cu.usbmodem1411', 115200)
 
-while True:
-	print(myRead(ser))
+#while True:
+	#print(myRead(ser))
 
