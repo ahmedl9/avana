@@ -2,6 +2,7 @@
 import pygame
 import serial
 from MainFrame import mainFrame
+from HUD import hud
 from pySerialTest import myRead as read
 
 #ser = serial.Serial('/dev/cu.usbmodem1411', 115200)
@@ -16,7 +17,8 @@ def main():
     screen.fill(BG_COLOR)
     
     mFrame = mainFrame()
-    mFrame.render(screen)
+
+    ourHUD = hud()
 
     isRunning = True
     xpos = 350
@@ -36,6 +38,7 @@ def main():
         screen.fill(black)
         pygame.draw.rect(screen, (0,0,255), (xpos,10,10,10))
         mFrame.render(screen)
+        ourHUD.render(screen)
         
         pygame.display.update()
 
