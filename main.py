@@ -30,6 +30,7 @@ def main():
             if (event.type == pygame.QUIT):
                 isRunning = False
         
+        screen.blit(backgroundImg, (0, 0))
         mFrame.render(screen)
         ourHUD.render(screen)
         
