@@ -11,6 +11,7 @@ def main():
     clock = pygame.time.Clock()
     BG_COLOR = 128, 128, 128 #Light gray RGB
     screen.fill(BG_COLOR)
+    pygame.draw.rect(screen, (105, 105, 105), (200,200,400,400))
 
 
     isRunning = True
