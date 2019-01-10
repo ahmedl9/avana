@@ -5,7 +5,6 @@ from MainFrame import mainFrame
 from HUD import hud
 from pySerialTest import myRead as read
 
-#ser = serial.Serial('/dev/cu.usbmodem1411', 115200)
 
 
 def main():   
@@ -21,22 +20,13 @@ def main():
     ourHUD = hud()
 
     isRunning = True
-    xpos = 350
-    black = [0, 0, 0]
 
     while isRunning :
-        #print(read(ser))
         time_passed = clock.tick(50)
         for event in pygame.event.get():
             if (event.type == pygame.QUIT):
                 isRunning = False
-        joystickInput = ""#read(ser)
-        if joystickInput == "Left":
-            xpos -= 20
-        elif joystickInput == "Right":
-            xpos += 20
-        screen.fill(black)
-        pygame.draw.rect(screen, (0,0,255), (xpos,10,10,10))
+        
         mFrame.render(screen)
         ourHUD.render(screen)
         
