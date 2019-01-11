@@ -6,7 +6,7 @@
 
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(115200);
+  Serial.begin(2400);
   //Serial.println("Hello, beginning program...");
 
   pinMode(BUTTON, INPUT_PULLUP); // Arduino automatically does pullup resistor for us
@@ -35,7 +35,7 @@ void loop() {
   Serial.println(xRead);
   //Serial.print("Y value: ");
   //Serial.println(yRead);
-  delay(100);
+  delay(500);
 
   
 }

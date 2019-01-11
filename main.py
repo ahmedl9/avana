@@ -165,7 +165,7 @@ def pickAvatar(screen, clock):
                 return False
 
         pygame.display.update()
-    return currAvatar
+    return int(currAvatar)
 
 def displayEndGame(screen, clock, avatarNum, bCount, ourHUD):
     """
