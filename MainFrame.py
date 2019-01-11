@@ -76,9 +76,7 @@ class mainFrame:
         screen.blit(person1, (200, 140))
         screen.blit(person3, (490, 140))
         screen.blit(buttonImg, (420, 425))
-    
-
-        self.doButton(screen)
+        return self.doButton(screen)
             
     def textcool(self, screen, xpoint, ypoint, length, width, text, textsize, backgroundrgbvalues, textrgbvalues, font = None):
         test.writtenText(screen, xpoint, ypoint, length, width, text, textsize, backgroundrgbvalues, textrgbvalues, font)
@@ -91,6 +89,7 @@ class mainFrame:
     def doButton(self, screen):
         selected = pygame.image.load('Assets/button_selected.png')
         if self.clicked:
+            return self.currentSelection
             self.presstimer = 4
         if self.presstimer >= 0:
             self.presstimer -= 1
@@ -98,6 +97,7 @@ class mainFrame:
                 screen.blit(selected, (130, 425))
             elif self.currentSelection == "Right":
                 screen.blit(selected, (420, 425))
+        return ""
         
         #render image
         #render text on button
