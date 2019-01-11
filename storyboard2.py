@@ -37,11 +37,11 @@ class StoryBoard:
     
     #Options the user can have, takes in num and returns the value to that key
     def option(self, num):
-        self.one = ["Do you want to: ", "1) Give number", "2) Heck No!", "[1/2]?"]
-        self.two = ["Do you want to: ", "1) Piggy Bank", "2) Actual Bank", "[1/2]?"]
-        self.three = ["Do you want to: ", "1) Ofc Fortnite", "2) Calculator", "[1/2]?"]
-        self.four = ["Do you want to: ", "1) Capital One", "2) Irrelevant Bank", "[1/2]?"] 
-        self.five = ["Do you want to: ", "1) Electricity Bill", "2) Pay taxes", "[1/2]?"]
+        self.one = ["1) Give number", "2) Heck No!"]
+        self.two = ["1) Piggy Bank", "2) Actual Bank"]
+        self.three = ["1) Ofc Fortnite", "2) Calculator"]
+        self.four = ["1) Capital One", "2) Irrelevant Bank"]
+        self.five = ["1) Electricity Bill", "2) Pay taxes"]
         options = {
             1  : self.one,
             2  : self.two,
@@ -49,7 +49,8 @@ class StoryBoard:
             4  : self.four,
             5  : self.five
         }
-        return "\n".join(options[num])
+    
+        return options[num]
     
     #The concluding sentence, takes in num and return the value to that key 
     def aftermath(self, num):
@@ -65,6 +66,8 @@ class StoryBoard:
 
 responses = {} #Dict that keeps track of user responses
 rightAnswers = {} #Dict that keeps track of right answers
+
+"""
 while len(arr) != 0:
 
     
@@ -72,7 +75,7 @@ while len(arr) != 0:
     randNum = random.randint(1,5)
     #print(randNum)
     if randNum in arr:
-        print(storyBoard.question(randNum))
+        #print(storyBoard.question(randNum))
         returnAnswer = int(input(storyBoard.option(randNum)))
 
         if (randNum == 1):
@@ -95,7 +98,7 @@ while len(arr) != 0:
             responses.update({randNum : storyBoard.five[returnAnswer]})
             rightAnswers.update({randNum : storyBoard.five[2]})
 
-        print(storyBoard.aftermath(randNum))
+        #print(storyBoard.aftermath(randNum))
         #print(responses)
         arr.remove(randNum)
     else:
@@ -105,6 +108,8 @@ while len(arr) != 0:
 
 print(responses)
 print(rightAnswers)
+
+"""
 
 
 
