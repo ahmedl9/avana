@@ -92,13 +92,27 @@ def main():
     backgroundImg = pygame.image.load('Assets/background_image.png')
 
     screen.blit(backgroundImg, (0, 0))
-
+    bCount = 0
+    
     while isRunning :
         time_passed = clock.tick(50)
         for event in pygame.event.get():
             if (event.type == pygame.QUIT):
                 isRunning = False
-        
+
+        if (bCount >= 0 and bCount < 10): 
+            backgroundImg = pygame.image.load('Assets/background_image.png')
+            screen.blit(backgroundImg, (0, 0))
+        if (bCount >= 10 and bCount < 20):
+            backgroundImg = pygame.image.load('Assets/background_image_1.png')
+            screen.blit(backgroundImg, (0, 0))
+        if (bCount >= 20 and bCount < 30):
+            backgroundImg = pygame.image.load('Assets/background_image_2.png')
+            screen.blit(backgroundImg, (0, 0))
+        bCount = bCount + 1
+        if (bCount == 30):
+            bCount = 0
+
         mFrame.render(screen)
         ourHUD.render(screen)
         
