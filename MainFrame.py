@@ -85,6 +85,7 @@ class mainFrame:
     
     def textnotcool(self, screen, xpoint, ypoint, length, width, text, textsize, backgroundrgbvalues, textrgbvalues, font = None):
         test.readText(screen, xpoint, ypoint, length, width, text, textsize, backgroundrgbvalues, textrgbvalues, font)
+
     
 
     def doButton(self, screen):
