@@ -5,17 +5,16 @@ import test
 import random
 
 class mainFrame:
-    #Store person image displayed
-    #Store current text displayed
-    #Store current decisions
-    #Store decision aftermath
+    # Store person image displayed
+    # Store current text displayed
+    # Store current decisions
+    # Store decision aftermath
     image = ""
     text = ""
     decisions = {}
     aftermath = {}
 
     black = [0, 0, 0]
-    
     
     def __init__(self):
         image = ""
@@ -25,16 +24,11 @@ class mainFrame:
         self.blinktimer = 1
         self.presstimer = -1
         self.clicked = False
-
-    def pullScenario(self):
-        """
-        pull all the info
-        self.image = ...
-        """
     
     def render(self, screen, avatarNum, randPerson):
-        # Clean up all previous texts and images.
-
+        """
+        Operates main game menu and provides instantiation for buttons and listeners.
+        """
         grayBG = pygame.Surface((600, 400))
         grayBG.set_alpha(128)
         grayBG.fill((105, 105, 105))
@@ -84,8 +78,9 @@ class mainFrame:
     
 
     def doButton(self, screen):
-        # Check for button press and record it
-
+        """
+        Checks for button press and returns appropriate string value.
+        """
         selected = pygame.image.load('Assets/button_selected.png')
         if self.clicked:
             return self.currentSelection
@@ -98,9 +93,7 @@ class mainFrame:
                 screen.blit(selected, (420, 425))
         return ""
         
-        #render image
-        #render text on button
-        #render options
-
-
+        # render image
+        # render text on button
+        # render options
 

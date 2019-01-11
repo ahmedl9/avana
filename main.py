@@ -17,7 +17,9 @@ ser = serial.Serial('/dev/cu.usbmodem1411', 115200)
 blinktimer = 1
 
 def renderTitle(screen, bCount):
-
+    """
+    Called in a loop, renders title page and start menu. Animates background with clouds.
+    """
     if (bCount >= 0 and bCount < 10): 
         backgroundImg = pygame.image.load('Assets/background_image.png')
         screen.blit(backgroundImg, (0, 0))
@@ -65,9 +67,10 @@ def renderTitle(screen, bCount):
 
     pygame.display.update()
 
-
-
 def title(screen, clock):
+    """
+    Game manager for title animation. Calls renderTitle(). This function is called in main().
+    """
     bCount = 0
     
     buttonClicked = False
@@ -87,17 +90,11 @@ def title(screen, clock):
         for event in pygame.event.get():
             if (event.type == pygame.QUIT):
                 return False
-            """if event.type == pygame.MOUSEBUTTONUP:
-                pos = pygame.mouse.get_pos()
-                if (pygame.Rect((275, 325-25), (250, 50)).collidepoint(pos)):
-                    buttonClicked = True
-
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                pos = pygame.mouse.get_pos()
-                if (pygame.Rect((275, 325-25), (250, 50)).collidepoint(pos)):
-                    buttonClicked = True"""
         
 def pickAvatar(screen, clock):
+    """
+    Allows user to pick avatar using joystick. Saves choice and displays appropriate selection.
+    """
     bCount = 0
     
     avatarPicked = False
@@ -171,7 +168,9 @@ def pickAvatar(screen, clock):
     return currAvatar
 
 def displayEndGame(screen, clock, avatarNum, bCount, ourHUD):
-
+    """
+    Final end game screen, connects to SQL database hosted with AWS and displays recent games.
+    """
     nameSwitch = {1: "Jason", 2: "Kunal", 3: "Wes", 4: "Heidi"} 
     db.addEntry(nameSwitch[avatarNum], ourHUD.getCreditScore(), ourHUD.getBalance(), ourHUD.getHapiness())
 
@@ -240,7 +239,9 @@ def displayEndGame(screen, clock, avatarNum, bCount, ourHUD):
 
 
 def main():
-    
+    """
+    Main game function, interfaces with mainframe, HUD, and storyboard.
+    """
     pygame.init()
     pygame.mixer.pre_init(4410,16,2,4096)
     pygame.mixer.music.load("Assets/Quirky-Puzzle-Game-Menu.wav")
@@ -249,8 +250,6 @@ def main():
     screen = pygame.display.set_mode((800, 800))
     pygame.display.set_caption("Avana")
     clock = pygame.time.Clock()
-    #BG_COLOR = 128, 128, 128 #Light gray RGB
-    #screen.fill(BG_COLOR)
 
     #Entering main game loop
     
@@ -270,6 +269,7 @@ def main():
     questionNum = 0
     randPerson = 1
 
+    # Main game loop, continues running until game end parameters.
     while isRunning:
         time_passed = clock.tick(50)
         for event in pygame.event.get():
@@ -291,7 +291,7 @@ def main():
 
         buttonPressed = ""
 
-        if questionNum == 5:
+        if questionNum == 5 or ourHUD.getBalance() <= 0 or ourHUD.getCreditScore() <= 0:
             isRunning = displayEndGame(screen, clock, avatarNum, bCount, ourHUD)
             break
         else:
@@ -303,10 +303,10 @@ def main():
             questionText = myStory.question(randNum)
             answerList = myStory.option(randNum)
             reasonsWhy = myStory.aftermath(randNum)
-            mFrame.textcool(screen, 120, 260, 120, 560 - 5, questionText, 30, (85,85,85), (255,255,255),"Assets/Minecraft.ttf")
+            mFrame.textcool(screen, 120, 260, 120, 560 - 5, questionText, 25, (85,85,85), (255,255,255),"Assets/Minecraft.ttf")
             doesTextWritten = True
         else:
-            mFrame.textnotcool(screen, 120, 260, 120, 560 - 5, questionText, 30, (85,85,85), (255,255,255), "Assets/Minecraft.ttf")
+            mFrame.textnotcool(screen, 120, 260, 120, 560 - 5, questionText, 25, (85,85,85), (255,255,255), "Assets/Minecraft.ttf")
             mFrame.textnotcool(screen, 420, 425, 150, 560 - 5, answerList[1], 20 , (85,85,85), (0,0,0), "Assets/Minecraft.ttf")
             mFrame.textnotcool(screen, 130, 425, 150, 560 - 5, answerList[0], 20, (85,85,85), (0,0,0),"Assets/Minecraft.ttf")
         
@@ -330,7 +330,7 @@ def main():
             grayBG.fill((85, 85, 85))
             screen.blit(grayBG, (120, 260))
 
-            mFrame.textcool(screen, 120, 260, 120, 560 - 5, reasonsWhy, 30, (85,85,85), (0,128,0),"Assets/Minecraft.ttf")
+            mFrame.textcool(screen, 120, 260, 120, 560 - 5, reasonsWhy, 25, (85,85,85), (44,183,123),"Assets/Minecraft.ttf")
             time.sleep(2)
             doesTextWritten = False
         
