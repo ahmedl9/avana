@@ -100,7 +100,7 @@ def writtenText(screen, xpoint, ypoint, length, width, text, textsize, backgroun
                     done = True
 
             blittext = font.render(thenextbigstring[0:i], True, textrgbvalues)
-            sleep(0.01)
+            sleep(0.03)
             #pygame.draw.rect(screen, backgroundrgbvalues, (xpoint, ypoint + j ,width, textsize), 0)
             pygame.draw.rect(screen, backgroundrgbvalues, (xpoint, ypoint + j, width, textsize), 0)
             #screen.blit(blittext,(xpoint, ypoint + spacer))

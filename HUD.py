@@ -16,7 +16,7 @@ class hud:
         return self.balance
 
     def changeHapiness(self, val):
-        self.hapiness = self.hapiness + val
+        self.happiness = self.happiness + val
 
     def changeCreditScore(self, val):
         self.creditScore = self.creditScore + val
