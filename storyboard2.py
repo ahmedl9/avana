@@ -37,11 +37,11 @@ class StoryBoard:
     
     #Options the user can have, takes in num and returns the value to that key
     def option(self, num):
-        self.one = ["Do you want to: ", "1) Give the number even though the friend may get mad", "2) Don't give the number and let your friend be mad for 5 minutes.", "[1/2]?"]
-        self.two = ["Do you want to: ", "1) Keep the money in a piggy bank and risk getting it stolen?", "2) Put it into a bank for safety and the ability to collect interest on it.", "[1/2]?"]
-        self.three = ["Do you want to: ", "1) Cop the new Fortnite dance and skin?", "2) Buy the calculator as an long term investement which is for the betterment of yourself.", "[1/2]?"]
-        self.four = ["Do you want to: ", "1) Choose the best Banking company in the world, Capital One", "2) Join an irrelevant banking company that may steal your money.", "[1/2]?"] 
-        self.five = ["Do you want to: ", "1) Pay your electricity bill", "2) Pay your taxes", "[1/2]?"]
+        self.one = ["Do you want to: ", "1) Give number", "2) Heck No!", "[1/2]?"]
+        self.two = ["Do you want to: ", "1) Piggy Bank", "2) Actual Bank", "[1/2]?"]
+        self.three = ["Do you want to: ", "1) Ofc Fortnite", "2) Calculator", "[1/2]?"]
+        self.four = ["Do you want to: ", "1) Capital One", "2) Irrelevant Bank", "[1/2]?"] 
+        self.five = ["Do you want to: ", "1) Electricity Bill", "2) Pay taxes", "[1/2]?"]
         options = {
             1  : self.one,
             2  : self.two,
