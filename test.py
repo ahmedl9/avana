@@ -60,7 +60,10 @@ pygame.mixer.music.play(-1)
 #clock = pygame.time.Clock()
 
 def writtenText(screen, xpoint, ypoint, length, width, text, textsize, backgroundrgbvalues, textrgbvalues, font = None):
-
+    
+    print(ypoint)
+    print(textsize)
+    print(type(textsize))
     ypoint = ypoint - textsize
     ypoint = ypoint + 5
     xpoint = xpoint + 5
@@ -97,13 +100,34 @@ def writtenText(screen, xpoint, ypoint, length, width, text, textsize, backgroun
                     done = True
 
             blittext = font.render(thenextbigstring[0:i], True, textrgbvalues)
-            sleep(0.04)
+            sleep(0.01)
             #pygame.draw.rect(screen, backgroundrgbvalues, (xpoint, ypoint + j ,width, textsize), 0)
             pygame.draw.rect(screen, backgroundrgbvalues, (xpoint, ypoint + j, width, textsize), 0)
             #screen.blit(blittext,(xpoint, ypoint + spacer))
             screen.blit(blittext,(xpoint, ypoint + j))
             pygame.display.flip()
+
+
+def readText(screen, xpoint, ypoint, length, width, text, textsize, backgroundrgbvalues, textrgbvalues, font = None):
+    
+    ypoint = ypoint + 5
+    xpoint = xpoint + 5
+    
+    
+    done = False
+    font = pygame.font.Font(font, textsize)
+    mynewlist = wrapline(text, font, width)
+    j = 0
+    
+    for thenextbigstring in mynewlist:
+        blittext = font.render(thenextbigstring, True, textrgbvalues)
+        screen.blit(blittext,(xpoint, ypoint + j))
+        j += textsize
+        pygame.display.flip()
             #clock.tick(60)
+
+
+
 
 
 #pygame.draw.rect(screen, (100,100,100), (100, 100, 10, 10))
