@@ -50,7 +50,7 @@ def wrap_multi_line(text, font, maxwidth):
 screen = pygame.display.set_mode((640, 480))
 screen.fill((255, 255, 255))
 
-pygame.mixer.music.load("Quirky-Puzzle-Game-Menu.wav")
+pygame.mixer.music.load("Assets/Quirky-Puzzle-Game-Menu.wav")
 pygame.mixer.music.set_volume(0.5)
 pygame.mixer.music.play(-1)
 
@@ -107,4 +107,4 @@ def writtenText(screen, xpoint, ypoint, length, width, text, textsize, backgroun
 
 
 #pygame.draw.rect(screen, (100,100,100), (100, 100, 10, 10))
-writtenText(screen, 100, 100, 200, 200, "Hello, my name is Nishant Iyengar and I like to eat pie! I also like to hoola hoop and watch video games", 16, (255,255,255), (0,128,0))
+#writtenText(screen, 100, 100, 200, 200, "Hello, my name is Nishant Iyengar and I like to eat pie! I also like to hoola hoop and watch video games", 16, (255,255,255), (0,128,0))
