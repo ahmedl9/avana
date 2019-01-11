@@ -34,11 +34,11 @@ class hud:
         screen.blit(balanceImg, (500, 50))
 
         font = pygame.font.Font("Assets/Minecraft.ttf", 24)
-        text = font.render("0", True, (0, 0, 0))
-        screen.blit(text, (60, 63))
+        text = font.render("Credit Score: " + str(self.creditScore), True, (0, 0, 0))
+        screen.blit(text, (60, 68))
 
-        text2 = font.render("0", True, (0, 0, 0))
-        screen.blit(text2, (510, 63))
+        text2 = font.render("Balance: " + str(self.balance), True, (0, 0, 0))
+        screen.blit(text2, (510, 68))
         
         #render image
         #render text on button
