@@ -14,7 +14,6 @@ def printEntries():
     print(cur.fetchall())
 
 def addEntry(name, credit_score, balance, happiness):
-    print(name + credit_score + balance + happiness)
     cur.execute('INSERT INTO leaderBoard VALUES(null, %s, %s, %s, %s)', (name, credit_score, balance, happiness))
 
     cnx.commit()
