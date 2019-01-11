@@ -69,6 +69,7 @@ def title(screen, clock):
 
         joystickInput = read(ser)
         if joystickInput == "Button":
+
             buttonClicked = True
 
         bCount = bCount + 1
@@ -88,8 +89,56 @@ def title(screen, clock):
                 if (pygame.Rect((275, 325-25), (250, 50)).collidepoint(pos)):
                     buttonClicked = True"""
         
-    return True
+def pickAvatar(screen, clock):
+    bCount = 0
+    
+    avatarPicked = False
+    currAvatar = 1
 
+    while (not avatarPicked):
+        if (bCount >= 0 and bCount < 10): 
+            backgroundImg = pygame.image.load('Assets/background_image.png')
+            screen.blit(backgroundImg, (0, 0))
+        if (bCount >= 10 and bCount < 20):
+            backgroundImg = pygame.image.load('Assets/background_image_1.png')
+            screen.blit(backgroundImg, (0, 0))
+        if (bCount >= 20 and bCount < 30):
+            backgroundImg = pygame.image.load('Assets/background_image_2.png')
+            screen.blit(backgroundImg, (0, 0))
+
+        grayBG = pygame.Surface((600, 400))
+        grayBG.set_alpha(128)
+        grayBG.fill((105, 105, 105))
+        screen.blit(grayBG, (100, 125))
+
+        person1 = pygame.image.load('Assets/person1.png')
+        person2 = pygame.image.load('Assets/person2.png')
+        person3 = pygame.image.load('Assets/person3.png')
+        person4 = pygame.image.load('Assets/person4.png')
+
+        screen.blit(person1, (125, 275))
+        screen.blit(person2, (275, 275))
+        screen.blit(person3, (425, 275))
+        screen.blit(person4, (575, 275))
+
+        joystickInput = read(ser)
+        if joystickInput == "Left" and currAvatar > 1:
+            currAvatar -= 1
+        elif joystickInput == "Right" and currAvatar < 4:
+            currAvatar += 1
+        elif joystickInput == "Button":
+            avatarPicked = True
+
+        bCount = bCount + 1
+        if (bCount == 30):
+            bCount = 0
+        time_passed = clock.tick(50)
+        for event in pygame.event.get():
+            if (event.type == pygame.QUIT):
+                return False
+
+        pygame.display.update()
+    return currAvatar
 
 
 
@@ -111,13 +160,15 @@ def main():
     ourHUD = hud()
 
     #Entering title screen loop
-    isRunning = title(screen, clock)
+    title(screen, clock)
+    avatarNum = pickAvatar(screen, clock)
     backgroundImg = pygame.image.load('Assets/background_image.png')
 
     screen.blit(backgroundImg, (0, 0))
     bCount = 0
     
-    while isRunning :
+    isRunning = True
+    while isRunning:
         time_passed = clock.tick(50)
         for event in pygame.event.get():
             if (event.type == pygame.QUIT):
