@@ -35,7 +35,9 @@ class mainFrame:
         grayBG.fill((105, 105, 105))
         screen.blit(grayBG, (100, 125))
         #pygame.draw.rect(screen, (105, 105, 105), (100,200,600,500))
-        self.currentSelection = read(self.ser)
+        joystickInput = read(self.ser)
+        if joystickInput == "Left" or joystickInput == "Right":
+            self.currentSelection = joystickInput
         #if joystickInput == "Left":
         #    self.xpos -= 20
         #elif joystickInput == "Right":
