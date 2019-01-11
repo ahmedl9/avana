@@ -20,7 +20,7 @@ class mainFrame:
         image = ""
         self.xpos = 195
         self.currentSelection = "None"
-        self.ser = serial.Serial('/dev/cu.usbmodem1411', 115200)
+        self.ser = serial.Serial('/dev/cu.usbmodem1411', 2400)
         self.blinktimer = 1
         self.presstimer = -1
         self.clicked = False
