@@ -4,6 +4,7 @@ import serial
 from MainFrame import mainFrame
 from HUD import hud
 from pySerialTest import myRead as read
+import db
 
 ser = serial.Serial('/dev/cu.usbmodem1411', 115200)
 blinktimer = 1
@@ -162,7 +163,73 @@ def pickAvatar(screen, clock):
         pygame.display.update()
     return currAvatar
 
+def displayEndGame(screen, clock, avatarNum, bCount, ourHUD):
 
+    nameSwitch = {1: "Jason", 2: "Kunal", 3: "Wes", 4: "Heidi"} 
+    #db.addEntry(nameSwitch[avatarNum], ourHUD.getCreditScore(), ourHUD.getBalance(), ourHUD.getHapiness())
+
+    while (True):
+        if (bCount >= 0 and bCount < 10): 
+            backgroundImg = pygame.image.load('Assets/background_image.png')
+            screen.blit(backgroundImg, (0, 0))
+        if (bCount >= 10 and bCount < 20):
+            backgroundImg = pygame.image.load('Assets/background_image_1.png')
+            screen.blit(backgroundImg, (0, 0))
+        if (bCount >= 20 and bCount < 30):
+            backgroundImg = pygame.image.load('Assets/background_image_2.png')
+            screen.blit(backgroundImg, (0, 0))
+
+        grayBG = pygame.Surface((600, 400))
+        grayBG.set_alpha(128)
+        grayBG.fill((105, 105, 105))
+        screen.blit(grayBG, (100, 125))
+
+        leaders = db.getEntries()
+        numSwitch = {"Jason" : 1, "Kunal" : 2, "Wes" : 3, "Heidi" : 4} 
+        person1 = pygame.image.load('Assets/person' + str(numSwitch[leaders[0]['name']]) +'.png')
+        person2 = pygame.image.load('Assets/person' + str(numSwitch[leaders[1]['name']]) +'.png')
+        person3 = pygame.image.load('Assets/person' + str(numSwitch[leaders[2]['name']]) +'.png')
+
+        screen.blit(person1, (175, 150))
+        screen.blit(person2, (175, 275))
+        screen.blit(person3, (175, 400))
+
+        fontTitlerecent = pygame.font.Font("Assets/Minecraft.ttf", 48)
+        textTitlerecent = fontTitlerecent.render("Recent Games", True, (0, 0, 0))
+        screen.blit(textTitlerecent, (225, 75))
+
+        fontTitle1name = pygame.font.Font("Assets/Minecraft.ttf", 32)
+        textTitle1name = fontTitle1name.render(leaders[0]['name'], True, (0, 0, 0))
+        screen.blit(textTitle1name, (325, 175))
+
+        fontTitle1 = pygame.font.Font("Assets/Minecraft.ttf", 32)
+        textTitle1 = fontTitle1.render("$ %s" % leaders[0]['balance'], True, (0, 0, 0))
+        screen.blit(textTitle1, (500, 175))
+
+        fontTitle2name = pygame.font.Font("Assets/Minecraft.ttf", 32)
+        textTitle2name = fontTitle2name.render(leaders[1]['name'], True, (0, 0, 0))
+        screen.blit(textTitle2name, (325, 300))
+
+        fontTitle2 = pygame.font.Font("Assets/Minecraft.ttf", 32)
+        textTitle2 = fontTitle2.render("$ %s" % leaders[1]['balance'], True, (0, 0, 0))
+        screen.blit(textTitle2, (500, 300))
+
+        fontTitle3name = pygame.font.Font("Assets/Minecraft.ttf", 32)
+        textTitle3name = fontTitle3name.render(leaders[2]['name'], True, (0, 0, 0))
+        screen.blit(textTitle3name, (325, 425))
+
+        fontTitle3 = pygame.font.Font("Assets/Minecraft.ttf", 32)
+        textTitle3 = fontTitle3.render("$ %s" % leaders[2]['balance'], True, (0, 0, 0))
+        screen.blit(textTitle3, (500, 425))
+
+        bCount = bCount + 1
+        if (bCount == 30):
+            bCount = 0
+        time_passed = clock.tick(50)
+        for event in pygame.event.get():
+            if (event.type == pygame.QUIT):
+                return False
+        pygame.display.update()
 
 
 def main():
@@ -193,6 +260,7 @@ def main():
     
     isRunning = True
     doesTextWritten = False
+    questionNum = 6
 
     while isRunning:
         time_passed = clock.tick(50)
@@ -212,8 +280,12 @@ def main():
         bCount = bCount + 1
         if (bCount == 30):
             bCount = 0
-        
-        mFrame.render(screen, avatarNum)
+
+        if questionNum == 6:
+            isRunning = displayEndGame(screen, clock, avatarNum, bCount, ourHUD)
+            break
+        else:
+            questionNum = mFrame.render(screen, avatarNum, questionNum)
         ourHUD.render(screen)
         if not doesTextWritten:
             mFrame.textcool(screen, 120, 260, 120, 560 - 5, "Hello, my name is Nishant Iyengar and I like to eat pie! I also like to hoola hoop and watch video games", 30, (85,85,85), (255,255,255))

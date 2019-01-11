@@ -31,7 +31,7 @@ class mainFrame:
         self.image = ...
         """
     
-    def render(self, screen, avatarNum):
+    def render(self, screen, avatarNum, questionNum):
         #clean up all previous texts and images
         grayBG = pygame.Surface((600, 400))
         grayBG.set_alpha(128)
@@ -79,6 +79,8 @@ class mainFrame:
     
 
         self.doButton(screen)
+
+        return questionNum
             
     def textcool(self, screen, xpoint, ypoint, length, width, text, textsize, backgroundrgbvalues, textrgbvalues, font = None):
         test.writtenText(screen, xpoint, ypoint, length, width, text, textsize, backgroundrgbvalues, textrgbvalues, font)
