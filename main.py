@@ -141,10 +141,21 @@ def main():
         mFrame.render(screen)
         ourHUD.render(screen)
         if not doesTextWritten:
-            mFrame.textcool(screen, 120, 260, 120, 560 - 5, "Hello, my name is Nishant Iyengar and I like to eat pie! I also like to hoola hoop and watch video games", 30, (85,85,85), (255,255,255))
+            #get maintext
+            mFrame.textcool(screen, 120, 260, 120, 560 - 5, "Hello, my name is Nishant Iyengar and I like to eat pie! I also like to hoola hoop and watch video games", 30, (85,85,85), (255,255,255),"Assets/Minecraft.ttf")
             doesTextWritten = True
         else:
-            mFrame.textnotcool(screen, 120, 260, 120, 560 - 5, "Hello, my name is Nishant Iyengar and I like to eat pie! I also like to hoola hoop and watch video games", 30, (85,85,85), (255,255,255))        
+            mFrame.textnotcool(screen, 120, 260, 120, 560 - 5, "Hello, my name is Nishant Iyengar and I like to eat pie! I also like to hoola hoop and watch video games", 30, (85,85,85), (255,255,255), "Assets/Minecraft.ttf")
+            mFrame.textnotcool(screen, 420, 425, 150, 560 - 5, "Button2: Answer", 20 , (85,85,85), (0,0,0), "Assets/Minecraft.ttf")
+            mFrame.textnotcool(screen, 130, 425, 150, 560 - 5, "Button1: Answer", 20, (85,85,85), (0,0,0),"Assets/Minecraft.ttf")
+        
+        
+
+        
+
+       
+    
+
             
         
         pygame.display.update()
