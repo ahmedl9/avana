@@ -4,7 +4,11 @@ import serial
 from MainFrame import mainFrame
 from HUD import hud
 from pySerialTest import myRead as read
+import random
+from storyboard2 import StoryBoard
 
+arr = [1,2,3,4,5]
+myStory = StoryBoard()
 ser = serial.Serial('/dev/cu.usbmodem14501', 115200)
 blinktimer = 1
 
@@ -138,16 +142,33 @@ def main():
         if (bCount == 30):
             bCount = 0
         
-        mFrame.render(screen)
+        buttonPressed = mFrame.render(screen)
         ourHUD.render(screen)
         if not doesTextWritten:
-            #get maintext
-            mFrame.textcool(screen, 120, 260, 120, 560 - 5, "Hello, my name is Nishant Iyengar and I like to eat pie! I also like to hoola hoop and watch video games", 30, (85,85,85), (255,255,255),"Assets/Minecraft.ttf")
+            randNum = random.randint(1,5)
+            questionText = myStory.question(randNum)
+            answerList = myStory.option(randNum)
+            reasonsWhy = myStory.aftermath(randNum)
+            mFrame.textcool(screen, 120, 260, 120, 560 - 5, questionText, 30, (85,85,85), (255,255,255),"Assets/Minecraft.ttf")
             doesTextWritten = True
         else:
-            mFrame.textnotcool(screen, 120, 260, 120, 560 - 5, "Hello, my name is Nishant Iyengar and I like to eat pie! I also like to hoola hoop and watch video games", 30, (85,85,85), (255,255,255), "Assets/Minecraft.ttf")
-            mFrame.textnotcool(screen, 420, 425, 150, 560 - 5, "Button2: Answer", 20 , (85,85,85), (0,0,0), "Assets/Minecraft.ttf")
-            mFrame.textnotcool(screen, 130, 425, 150, 560 - 5, "Button1: Answer", 20, (85,85,85), (0,0,0),"Assets/Minecraft.ttf")
+            mFrame.textnotcool(screen, 120, 260, 120, 560 - 5, questionText, 30, (85,85,85), (255,255,255), "Assets/Minecraft.ttf")
+            mFrame.textnotcool(screen, 420, 425, 150, 560 - 5, answerList[1], 20 , (85,85,85), (0,0,0), "Assets/Minecraft.ttf")
+            mFrame.textnotcool(screen, 130, 425, 150, 560 - 5, answerList[0], 20, (85,85,85), (0,0,0),"Assets/Minecraft.ttf")
+        
+        
+        if buttonPressed:
+            theAnswer = ""
+            print('ANKUR IS GOD')
+            if buttonPressed == "Left":
+                theAnswer = answerList[0]
+            elif buttonPressed == "Right":
+                theAnswer = answerList[1]
+
+            doesText = False
+            
+
+
         
         
 
