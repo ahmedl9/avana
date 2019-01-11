@@ -6,8 +6,21 @@ from HUD import hud
 from pySerialTest import myRead as read
 import random
 from storyboard2 import StoryBoard
+import time
 
 arr = [1,2,3,4,5]
+changes = {
+    "1) Give number": [-1,-200,-900],
+    "2) Heck No!": [1,100,-450],
+    "1) Piggy Bank": [1,100,500],
+    "2) Actual Bank": [-1,-200,-500],
+    "1) Ofc Fortnite": [1, 0, -200],
+    "2) Calculator": [-1,150,-200],
+    "1) Capital One": [2,100,1000],
+    "2) Irrelevant Bank": [-2,-200,-2000],
+    "1) Electricity Bill": [-1,100,-500],
+    "2) Pay taxes": [1,50,-500]
+}
 myStory = StoryBoard()
 ser = serial.Serial('/dev/cu.usbmodem14501', 115200)
 blinktimer = 1
@@ -158,26 +171,26 @@ def main():
         
         
         if buttonPressed:
+            
             theAnswer = ""
-            print('ANKUR IS GOD')
             if buttonPressed == "Left":
                 theAnswer = answerList[0]
             elif buttonPressed == "Right":
                 theAnswer = answerList[1]
-
-            doesText = False
             
+            myChanges = changes[theAnswer]
 
+            ourHUD.changeHapiness(myChanges[0])
+            ourHUD.changeCreditScore(myChanges[1])
+            ourHUD.changeBalance(myChanges[2])
 
-        
-        
+            grayBG = pygame.Surface((560, 120))
+            grayBG.fill((85, 85, 85))
+            screen.blit(grayBG, (120, 260))
 
-        
-
-       
-    
-
-            
+            mFrame.textcool(screen, 120, 260, 120, 560 - 5, reasonsWhy, 30, (85,85,85), (0,128,0),"Assets/Minecraft.ttf")
+            time.sleep(2)
+            doesTextWritten = False
         
         pygame.display.update()
 
