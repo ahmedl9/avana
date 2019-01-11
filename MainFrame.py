@@ -20,6 +20,7 @@ class mainFrame:
         self.xpos = 195
         self.currentSelection = "None"
         self.ser = serial.Serial('/dev/cu.usbmodem1411', 115200)
+        self.blinktimer = 1
 
     def pullScenario(self):
         """
@@ -46,11 +47,17 @@ class mainFrame:
 
         selectionBorder = pygame.image.load('Assets/selection.png')
         buttonImg = pygame.image.load('Assets/button.png')
+        if self.blinktimer < 0:
+            self.blinktimer = 8
+        elif self.blinktimer < 4:
+            self.blinktimer -= 1
+            if self.currentSelection == "Left":
+                screen.blit(selectionBorder, (125, 420))
+            elif self.currentSelection == "Right":
+                screen.blit(selectionBorder, (415, 420))
 
-        if self.currentSelection == "Left":
-            screen.blit(selectionBorder, (125, 420))
-        elif self.currentSelection == "Right":
-            screen.blit(selectionBorder, (415, 420))
+        else:
+            self.blinktimer -= 1
 
         screen.blit(buttonImg, (130, 425))
         screen.blit(buttonImg, (420, 425))
