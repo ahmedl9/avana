@@ -18,7 +18,9 @@ class mainFrame:
     def __init__(self):
         image = ""
         self.xpos = 195
-        #self.ser = serial.Serial('/dev/cu.usbmodem1411', 115200)
+        self.currentSelection = "None"
+        self.ser = serial.Serial('/dev/cu.usbmodem1411', 115200)
+        self.blinktimer = 1
 
     def pullScenario(self):
         """
@@ -29,19 +31,30 @@ class mainFrame:
     def render(self, screen):
         #clean up all previous texts and images
         grayBG = pygame.Surface((600, 400))
-        grayBG.set_alpha(8)
+        grayBG.set_alpha(128)
         grayBG.fill((105, 105, 105))
         screen.blit(grayBG, (100, 125))
         #pygame.draw.rect(screen, (105, 105, 105), (100,200,600,500))
-        joystickInput = ""#read(self.ser)
-        if joystickInput == "Left":
-            self.xpos -= 20
-        elif joystickInput == "Right":
-            self.xpos += 20
+        self.currentSelection = read(self.ser)
+        #if joystickInput == "Left":
+        #    self.xpos -= 20
+        #elif joystickInput == "Right":
+        #    self.xpos += 20
         #screen.fill(black)
-        pygame.draw.rect(screen, (0,0,255), (200 + self.xpos,325,10,10))
 
         buttonImg = pygame.image.load('Assets/button.png')
+        selectionBorder = pygame.image.load('Assets/selection.png')
+
+        if self.blinktimer < 0:
+            self.blinktimer = 8
+        elif self.blinktimer < 4:
+            self.blinktimer -= 1
+            if self.currentSelection == "Left":
+                screen.blit(selectionBorder, (125, 420))
+            elif self.currentSelection == "Right":
+                screen.blit(selectionBorder, (415, 420))
+        else:
+            self.blinktimer -= 1
 
         screen.blit(buttonImg, (130, 425))
         screen.blit(buttonImg, (420, 425))
