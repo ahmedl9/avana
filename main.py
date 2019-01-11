@@ -5,7 +5,7 @@ from MainFrame import mainFrame
 from HUD import hud
 from pySerialTest import myRead as read
 
-ser = serial.Serial('/dev/cu.usbmodem1411', 115200)
+ser = serial.Serial('/dev/cu.usbmodem14501', 115200)
 blinktimer = 1
 
 def renderTitle(screen, bCount):
@@ -94,7 +94,8 @@ def title(screen, clock):
 
 
 
-def main():  
+def main():
+    
     pygame.init()
     pygame.mixer.pre_init(4410,16,2,4096)
     pygame.mixer.music.load("Assets/Quirky-Puzzle-Game-Menu.wav")
@@ -107,6 +108,7 @@ def main():
     #screen.fill(BG_COLOR)
 
     #Entering main game loop
+    
     mFrame = mainFrame()
     ourHUD = hud()
 
@@ -116,8 +118,8 @@ def main():
 
     screen.blit(backgroundImg, (0, 0))
     bCount = 0
-    
-    while isRunning :
+    doesTextWritten = False
+    while isRunning:
         time_passed = clock.tick(50)
         for event in pygame.event.get():
             if (event.type == pygame.QUIT):
@@ -135,9 +137,15 @@ def main():
         bCount = bCount + 1
         if (bCount == 30):
             bCount = 0
-
+        
         mFrame.render(screen)
         ourHUD.render(screen)
+        if not doesTextWritten:
+            mFrame.textcool(screen, 120, 260, 120, 560 - 5, "Hello, my name is Nishant Iyengar and I like to eat pie! I also like to hoola hoop and watch video games", 30, (85,85,85), (255,255,255))
+            doesTextWritten = True
+        else:
+            mFrame.textnotcool(screen, 120, 260, 120, 560 - 5, "Hello, my name is Nishant Iyengar and I like to eat pie! I also like to hoola hoop and watch video games", 30, (85,85,85), (255,255,255))        
+            
         
         pygame.display.update()
 

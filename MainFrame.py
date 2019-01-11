@@ -1,6 +1,7 @@
 import pygame
 import serial
 from pySerialTest import myRead as read
+import test
 
 class mainFrame:
     #Store person image displayed
@@ -19,7 +20,7 @@ class mainFrame:
         image = ""
         self.xpos = 195
         self.currentSelection = "None"
-        self.ser = serial.Serial('/dev/cu.usbmodem1411', 115200)
+        self.ser = serial.Serial('/dev/cu.usbmodem14501', 115200)
         self.blinktimer = 1
         self.presstimer = -1
         self.clicked = False
@@ -36,6 +37,12 @@ class mainFrame:
         grayBG.set_alpha(128)
         grayBG.fill((105, 105, 105))
         screen.blit(grayBG, (100, 125))
+        
+        grayBG = pygame.Surface((560, 120))
+        grayBG.fill((85, 85, 85))
+        screen.blit(grayBG, (120, 260))
+        
+
         #pygame.draw.rect(screen, (105, 105, 105), (100,200,600,500))
         joystickInput = read(self.ser)
         if joystickInput == "Left" or joystickInput == "Right":
@@ -69,8 +76,16 @@ class mainFrame:
         screen.blit(person1, (200, 140))
         screen.blit(person3, (490, 140))
         screen.blit(buttonImg, (420, 425))
+    
 
         self.doButton(screen)
+            
+    def textcool(self, screen, xpoint, ypoint, length, width, text, textsize, backgroundrgbvalues, textrgbvalues, font = None):
+        test.writtenText(screen, xpoint, ypoint, length, width, text, textsize, backgroundrgbvalues, textrgbvalues, font)
+    
+    def textnotcool(self, screen, xpoint, ypoint, length, width, text, textsize, backgroundrgbvalues, textrgbvalues, font = None):
+        test.readText(screen, xpoint, ypoint, length, width, text, textsize, backgroundrgbvalues, textrgbvalues, font)
+    
 
     def doButton(self, screen):
         selected = pygame.image.load('Assets/button_selected.png')
