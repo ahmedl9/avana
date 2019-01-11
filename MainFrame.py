@@ -35,18 +35,16 @@ class mainFrame:
         grayBG.fill((105, 105, 105))
         screen.blit(grayBG, (100, 125))
         #pygame.draw.rect(screen, (105, 105, 105), (100,200,600,500))
-        joystickInput = read(self.ser)
-        if joystickInput == "Left" or joystickInput == "Right":
-            self.currentSelection = joystickInput
+        self.currentSelection = read(self.ser)
         #if joystickInput == "Left":
         #    self.xpos -= 20
         #elif joystickInput == "Right":
         #    self.xpos += 20
         #screen.fill(black)
-        #pygame.draw.rect(screen, (0,0,255), (200 + self.xpos,325,10,10))
 
-        selectionBorder = pygame.image.load('Assets/selection.png')
         buttonImg = pygame.image.load('Assets/button.png')
+        selectionBorder = pygame.image.load('Assets/selection.png')
+
         if self.blinktimer < 0:
             self.blinktimer = 8
         elif self.blinktimer < 4:
@@ -55,7 +53,6 @@ class mainFrame:
                 screen.blit(selectionBorder, (125, 420))
             elif self.currentSelection == "Right":
                 screen.blit(selectionBorder, (415, 420))
-
         else:
             self.blinktimer -= 1
 
