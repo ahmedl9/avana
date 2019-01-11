@@ -94,6 +94,7 @@ def pickAvatar(screen, clock):
     
     avatarPicked = False
     currAvatar = 1
+    avatarBlinkTimer = 1
 
     while (not avatarPicked):
         if (bCount >= 0 and bCount < 10): 
@@ -111,6 +112,10 @@ def pickAvatar(screen, clock):
         grayBG.fill((105, 105, 105))
         screen.blit(grayBG, (100, 125))
 
+        fontTitle = pygame.font.Font("Assets/Minecraft.ttf", 32)
+        textTitle = fontTitle.render("Pick an Avatar", True, (255, 255, 255))
+        screen.blit(textTitle, (275, 200))
+
         person1 = pygame.image.load('Assets/person1.png')
         person2 = pygame.image.load('Assets/person2.png')
         person3 = pygame.image.load('Assets/person3.png')
@@ -120,6 +125,23 @@ def pickAvatar(screen, clock):
         screen.blit(person2, (275, 275))
         screen.blit(person3, (425, 275))
         screen.blit(person4, (575, 275))
+
+        avatarBorder = pygame.image.load('Assets/character_selection.png')
+
+        if avatarBlinkTimer < 0:
+            avatarBlinkTimer = 8
+        elif avatarBlinkTimer < 4:
+            avatarBlinkTimer -= 1
+            if currAvatar == 1:
+                screen.blit(avatarBorder, (120, 270))
+            elif currAvatar == 2:
+                screen.blit(avatarBorder, (270, 270))
+            elif currAvatar == 3:
+                screen.blit(avatarBorder, (420, 270))
+            else:
+                screen.blit(avatarBorder, (570, 270))
+        else:
+            avatarBlinkTimer -= 1
 
         joystickInput = read(ser)
         if joystickInput == "Left" and currAvatar > 1:
@@ -191,7 +213,7 @@ def main():
         if (bCount == 30):
             bCount = 0
         
-        mFrame.render(screen)
+        mFrame.render(screen, avatarNum)
         ourHUD.render(screen)
         if not doesTextWritten:
             mFrame.textcool(screen, 120, 260, 120, 560 - 5, "Hello, my name is Nishant Iyengar and I like to eat pie! I also like to hoola hoop and watch video games", 30, (85,85,85), (255,255,255))

@@ -31,7 +31,7 @@ class mainFrame:
         self.image = ...
         """
     
-    def render(self, screen):
+    def render(self, screen, avatarNum):
         #clean up all previous texts and images
         grayBG = pygame.Surface((600, 400))
         grayBG.set_alpha(128)
@@ -58,7 +58,7 @@ class mainFrame:
 
         buttonImg = pygame.image.load('Assets/button.png')
         selectionBorder = pygame.image.load('Assets/selection.png')
-        person1 = pygame.image.load('Assets/person1.png')
+        myAvatar = pygame.image.load('Assets/person' + str(avatarNum) + '.png')
         person3 = pygame.image.load('Assets/person3.png')
 
         if self.blinktimer < 0:
@@ -73,7 +73,7 @@ class mainFrame:
             self.blinktimer -= 1
 
         screen.blit(buttonImg, (130, 425))
-        screen.blit(person1, (200, 140))
+        screen.blit(myAvatar, (200, 140))
         screen.blit(person3, (490, 140))
         screen.blit(buttonImg, (420, 425))
     
