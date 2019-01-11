@@ -5,8 +5,15 @@ from MainFrame import mainFrame
 from HUD import hud
 from pySerialTest import myRead as read
 import db
+import random
+from storyboard2 import StoryBoard
+import time
 
+arr = [1,2,3,4,5]
+changes = {"1) Give number": [-1,-200,-900], "2) Heck No!": [1,100,-450], "1) Piggy Bank": [1,100,500], "2) Actual Bank": [-1,-200,-500], "1) Ofc Fortnite": [1, 0, -200], "2) Calculator": [-1,150,-200], "1) Capital One": [2,100,1000], "2) Irrelevant Bank": [-2,-200,-2000], "1) Electricity Bill": [-1,100,-500], "2) Pay taxes": [1,50,-500]}
+myStory = StoryBoard()
 ser = serial.Serial('/dev/cu.usbmodem1411', 115200)
+
 blinktimer = 1
 
 def renderTitle(screen, bCount):
@@ -260,7 +267,7 @@ def main():
     
     isRunning = True
     doesTextWritten = False
-    questionNum = 6
+    questionNum = 0
 
     while isRunning:
         time_passed = clock.tick(50)
@@ -281,18 +288,49 @@ def main():
         if (bCount == 30):
             bCount = 0
 
-        if questionNum == 6:
+        buttonPressed = ""
+
+        if questionNum == 5:
             isRunning = displayEndGame(screen, clock, avatarNum, bCount, ourHUD)
             break
         else:
-            questionNum = mFrame.render(screen, avatarNum, questionNum)
+            buttonPressed = mFrame.render(screen, avatarNum)
+
         ourHUD.render(screen)
         if not doesTextWritten:
-            mFrame.textcool(screen, 120, 260, 120, 560 - 5, "Hello, my name is Nishant Iyengar and I like to eat pie! I also like to hoola hoop and watch video games", 30, (85,85,85), (255,255,255))
+            randNum = random.randint(1,5)
+            questionText = myStory.question(randNum)
+            answerList = myStory.option(randNum)
+            reasonsWhy = myStory.aftermath(randNum)
+            mFrame.textcool(screen, 120, 260, 120, 560 - 5, questionText, 30, (85,85,85), (255,255,255),"Assets/Minecraft.ttf")
             doesTextWritten = True
         else:
-            mFrame.textnotcool(screen, 120, 260, 120, 560 - 5, "Hello, my name is Nishant Iyengar and I like to eat pie! I also like to hoola hoop and watch video games", 30, (85,85,85), (255,255,255))        
+            mFrame.textnotcool(screen, 120, 260, 120, 560 - 5, questionText, 30, (85,85,85), (255,255,255), "Assets/Minecraft.ttf")
+            mFrame.textnotcool(screen, 420, 425, 150, 560 - 5, answerList[1], 20 , (85,85,85), (0,0,0), "Assets/Minecraft.ttf")
+            mFrame.textnotcool(screen, 130, 425, 150, 560 - 5, answerList[0], 20, (85,85,85), (0,0,0),"Assets/Minecraft.ttf")
+        
+        
+        if buttonPressed:
+            questionNum += 1
+            theAnswer = ""
+            if buttonPressed == "Left":
+                theAnswer = answerList[0]
+            elif buttonPressed == "Right":
+                theAnswer = answerList[1]
             
+            myChanges = changes[theAnswer]
+
+            ourHUD.changeHapiness(myChanges[0])
+            ourHUD.changeCreditScore(myChanges[1])
+            ourHUD.changeBalance(myChanges[2])
+
+            grayBG = pygame.Surface((560, 120))
+            grayBG.fill((85, 85, 85))
+            screen.blit(grayBG, (120, 260))
+
+            mFrame.textcool(screen, 120, 260, 120, 560 - 5, reasonsWhy, 30, (85,85,85), (0,128,0),"Assets/Minecraft.ttf")
+            time.sleep(2)
+            doesTextWritten = False
         
         pygame.display.update()
 
