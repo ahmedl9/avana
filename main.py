@@ -173,7 +173,7 @@ def pickAvatar(screen, clock):
 def displayEndGame(screen, clock, avatarNum, bCount, ourHUD):
 
     nameSwitch = {1: "Jason", 2: "Kunal", 3: "Wes", 4: "Heidi"} 
-    #db.addEntry(nameSwitch[avatarNum], ourHUD.getCreditScore(), ourHUD.getBalance(), ourHUD.getHapiness())
+    db.addEntry(nameSwitch[avatarNum], ourHUD.getCreditScore(), ourHUD.getBalance(), ourHUD.getHapiness())
 
     while (True):
         if (bCount >= 0 and bCount < 10): 
@@ -268,6 +268,7 @@ def main():
     isRunning = True
     doesTextWritten = False
     questionNum = 0
+    randPerson = 1
 
     while isRunning:
         time_passed = clock.tick(50)
@@ -294,7 +295,7 @@ def main():
             isRunning = displayEndGame(screen, clock, avatarNum, bCount, ourHUD)
             break
         else:
-            buttonPressed = mFrame.render(screen, avatarNum)
+            buttonPressed = mFrame.render(screen, avatarNum, randPerson)
 
         ourHUD.render(screen)
         if not doesTextWritten:
@@ -310,7 +311,8 @@ def main():
             mFrame.textnotcool(screen, 130, 425, 150, 560 - 5, answerList[0], 20, (85,85,85), (0,0,0),"Assets/Minecraft.ttf")
         
         
-        if buttonPressed:
+        if buttonPressed == "Left" or buttonPressed == "Right":
+            randPerson = random.randint(1, 4)
             questionNum += 1
             theAnswer = ""
             if buttonPressed == "Left":

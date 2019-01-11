@@ -2,6 +2,7 @@ import pygame
 import serial
 from pySerialTest import myRead as read
 import test
+import random
 
 class mainFrame:
     #Store person image displayed
@@ -31,8 +32,9 @@ class mainFrame:
         self.image = ...
         """
     
-    def render(self, screen, avatarNum):
-        #clean up all previous texts and images
+    def render(self, screen, avatarNum, randPerson):
+        # Clean up all previous texts and images.
+
         grayBG = pygame.Surface((600, 400))
         grayBG.set_alpha(128)
         grayBG.fill((105, 105, 105))
@@ -43,23 +45,17 @@ class mainFrame:
         screen.blit(grayBG, (120, 260))
         
 
-        #pygame.draw.rect(screen, (105, 105, 105), (100,200,600,500))
         joystickInput = read(self.ser)
         if joystickInput == "Left" or joystickInput == "Right":
             self.currentSelection = joystickInput
         self.clicked = False
         if joystickInput == "Button":
             self.clicked = True
-        #if joystickInput == "Left":
-        #    self.xpos -= 20
-        #elif joystickInput == "Right":
-        #    self.xpos += 20
-        #screen.fill(black)
 
         buttonImg = pygame.image.load('Assets/button.png')
         selectionBorder = pygame.image.load('Assets/selection.png')
         myAvatar = pygame.image.load('Assets/person' + str(avatarNum) + '.png')
-        person3 = pygame.image.load('Assets/person3.png')
+        otherperson = pygame.image.load('Assets/person' + str(randPerson) + '.png')
 
         if self.blinktimer < 0:
             self.blinktimer = 8
@@ -74,7 +70,7 @@ class mainFrame:
 
         screen.blit(buttonImg, (130, 425))
         screen.blit(myAvatar, (200, 140))
-        screen.blit(person3, (490, 140))
+        screen.blit(otherperson, (490, 140))
         screen.blit(buttonImg, (420, 425))
 
         return self.doButton(screen)
@@ -88,6 +84,8 @@ class mainFrame:
     
 
     def doButton(self, screen):
+        # Check for button press and record it
+
         selected = pygame.image.load('Assets/button_selected.png')
         if self.clicked:
             return self.currentSelection
