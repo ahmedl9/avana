@@ -7,3 +7,8 @@ Inspiration was driven by "gamefying" topics that are generally deemed boring an
 
 Thanks to all the mentors throughout the Summit, special shoutout to Heidi for teaching us how to use production grade Git!
 
+
+Here is an image of the Seeeduino Joystick we implemented: 
+
+![](IMG_3420.JPG)
+
