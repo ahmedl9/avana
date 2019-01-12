@@ -2,7 +2,7 @@
 
 As part of the Capital One 2019 Hackathon, our team created an 8-bit joy stick driven text adventure game aimed towards teaching youth about financial literacy. 
 
-[Demo Avana](https://github.com/ahmedl9/avana/blob/master/Assets/AvanaDemo.gif)
+![Demo Avana](https://github.com/ahmedl9/avana/blob/master/Assets/AvanaDemo.gif)
 
 Inspiration was driven by "gamefying" topics that are generally deemed boring and dense.
 
